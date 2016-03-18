@@ -58,9 +58,6 @@ SCHEDULER.every '2m', :first_in => '1s' do |job|
 					# Ignore branches not in whitelist
 					if not branch_whitelist.match(branch_name) 
 						false
-					# Ignore branches specifically blacklisted
-					elsif branch_blacklist_by_repo.has_key?(repo_slug) and branch_blacklist_by_repo[repo_slug].include?(branch_name)
-						false
 					else
 						true
 					end
@@ -80,7 +77,8 @@ SCHEDULER.every '2m', :first_in => '1s' do |job|
 			item['class'] = (items.find{|b|b["class"] == 'bad'}) ? 'bad' : 'good'
 			item['url'] = items.count ? 'https://travis-ci.org/%s' % repo_slug : ''
 			# Only show items if some are failing
-			item['items'] = (items.find{|b|b["class"] == 'bad'}) ? items : []
+			# item['items'] = (items.find{|b|b["class"] == 'bad'}) ? items : []
+      item['items'] = items
 		end
 
 		# Scrutinizer info
