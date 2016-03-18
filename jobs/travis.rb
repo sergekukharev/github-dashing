@@ -15,7 +15,7 @@ SCHEDULER.every '2m', :first_in => '1s' do |job|
 	builds = []
 
 	# Only look at release branches (x.y) and master, not at tags (x.y.z)
-	branch_whitelist = /^(\d+\.\d+$|master)/
+	branch_whitelist = /^(master|develop)/
 	branch_blacklist_by_repo = {}
 	branch_blacklist_by_repo = JSON.parse(ENV['TRAVIS_BRANCH_BLACKLIST']) if ENV['TRAVIS_BRANCH_BLACKLIST']
 
